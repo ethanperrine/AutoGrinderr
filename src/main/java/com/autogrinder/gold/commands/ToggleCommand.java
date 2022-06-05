@@ -31,4 +31,8 @@ public class ToggleCommand extends CommandBase
     public void processCommand(final ICommandSender commandSender, final String[] array) throws CommandException {
         AutoGrinder.getInstance().setGuiToOpen(new ToggleGui());
     }
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 0;
+    }
 }
