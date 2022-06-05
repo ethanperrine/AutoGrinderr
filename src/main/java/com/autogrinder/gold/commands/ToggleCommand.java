@@ -4,10 +4,9 @@
 
 package com.autogrinder.gold.commands;
 
-import net.minecraft.command.CommandException;
-import net.minecraft.client.gui.GuiScreen;
-import com.autogrinder.gold.gui.ToggleGui;
 import com.autogrinder.gold.AutoGrinder;
+import com.autogrinder.gold.gui.ToggleGui;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.CommandBase;
 
@@ -20,7 +19,7 @@ public class ToggleCommand extends CommandBase
 
     @Override
     public String getCommandName() {
-        return "gconfig";
+        return "grinderConfig";
     }
 
     @Override

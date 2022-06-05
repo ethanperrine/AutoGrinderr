@@ -35,10 +35,11 @@ public class AutoGrinder
     private String title;
     private static AutoGrinder instance;
     private Driver driver;
+    public static Driver drivers;
     private Configuration configuration;
     //private CommandExecutor commandExecutor;
     private Scheduler scheduler;
-    private boolean enabled;
+    private boolean enabled = true;
     private GuiScreen guiToOpen;
     public static final ExecutorService THREAD_POOL;
     
@@ -56,6 +57,7 @@ public class AutoGrinder
     public void init(final FMLInitializationEvent fmlInitializationEvent) {
         AutoGrinder.instance = this;
         this.driver = new Driver();
+        this.drivers = driver;
         this.configuration = new Configuration();
         this.scheduler = new Scheduler();
         this.keyBuffer = new KeyBuffer();
@@ -97,7 +99,7 @@ public class AutoGrinder
             
             @Override
             public Thread newThread(final Runnable runnable) {
-                return new Thread(runnable, String.valueOf(new StringBuilder().append("oofspitaddons").append(this.threadNumber.getAndIncrement())));
+                return new Thread(runnable, String.valueOf(new StringBuilder().append("AutoGrinder").append(this.threadNumber.getAndIncrement())));
             }
         });
     }

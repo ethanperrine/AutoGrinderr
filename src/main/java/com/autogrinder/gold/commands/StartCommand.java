@@ -10,9 +10,11 @@ import net.minecraft.command.ICommandSender;
 
 import net.minecraft.command.CommandBase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StartCommand extends CommandBase
 {
-
     @Override
     public String getCommandName() {
         return "autoGrinderStart";
@@ -27,4 +29,9 @@ public class StartCommand extends CommandBase
     public void processCommand(final ICommandSender commandSender, final String[] array) throws CommandException {
         AutoGrinder.getInstance().getDriver().toggle();
     }
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 0;
+    }
 }
+

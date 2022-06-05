@@ -79,10 +79,9 @@ public class Driver
     private MapData currentMap;
     private int queuePitTicksLeft;
     private final PlayerData playerData;
-    final Driver driver = this;
     
-    private void lambda$stateSetter$3() {
-        this.cameraHelper.lookAt(this.currentMap.getPerkLocation().addVector(0.0, 1.62, 0.0), this::lambda$null$2);
+    private void lambdaGetter() {
+        this.cameraHelper.lookAt(this.currentMap.getPerkLocation().addVector(0.0, 1.62, 0.0), this::lambdaNullCheck);
     }
     
     public void setTargetServer(final String targetServer) {
@@ -94,8 +93,8 @@ public class Driver
         return player != null && this.currentMap != null && player.posY > this.currentMap.getSpawnLevel() - 1;
     }
     
-    static CameraHelper access$000(final Driver driver) {
-        return driver.cameraHelper;
+    static CameraHelper aTestFunc() {
+        return AutoGrinder.drivers.cameraHelper;
     }
     
     @SubscribeEvent
@@ -330,18 +329,18 @@ public class Driver
                 this.currentState = State.DROPPING;
                 this.movementHelper.clearControlStates();
                 thePlayer.inventory.currentItem = Utils.getBestWeapon((EntityPlayer)thePlayer);
-                scheduler.addTask(new Task(this, 1) {
-                    Driver this$0;
+                scheduler.addTask(new Task(1) {
+                    Driver checkME;
 
-                    private void lambda$run$0() {
-                        if (!Driver.access$100(this.this$0).isRunning()) {
-                            Driver.access$100(this.this$0).setForwards(true);
+                    private void lambdaRun() {
+                        if (!Driver.AccessTest().isRunning()) {
+                            Driver.AccessTest().setForwards(true);
                         }
                     }
 
                     @Override
                     public void run() {
-                        Driver.access$000(this.this$0).lookAtXZ(0.0, 0.0, this::lambda$run$0);
+                        Driver.aTestFunc().lookAtXZ(0.0, 0.0, this::lambdaRun);
                     }
                 });
             }
@@ -661,7 +660,7 @@ public class Driver
         if (this.currentState == State.WAITING_PERK && inSpawn) {
             this.currentState = State.HEADING_TO_LOC;
             VapeHelper.turnOffKA();
-            this.movementHelper.goToXZ(this.currentMap.getPerkLocation(), this::lambda$stateSetter$3);
+            this.movementHelper.goToXZ(this.currentMap.getPerkLocation(), this::lambdaGetter);
         }
         if (this.currentState == State.HEADING_TO_LOC && !inSpawn) {
             this.currentState = State.DROPPING;
@@ -679,11 +678,10 @@ public class Driver
             VapeHelper.turnOffKA();
             this.movementHelper.clearControlStates();
             AutoGrinder.getInstance().getScheduler().addTask(new Task(this, 5) {
-                Driver this$0;
 
                 @Override
                 public void run() {
-                    Driver.access$100(this.this$0).clearControlStates();
+                    Driver.AccessTest().clearControlStates();
                     VapeHelper.turnOffKA();
                 }
             });
@@ -713,7 +711,7 @@ public class Driver
         this.perkData.onPrestige();
     }
 
-    private void lambda$null$2() {
+    private void lambdaNullCheck() {
         ClickHelper.leftClick();
         if (this.perkData.hasUnknown(this.playerData)) {
             AutoGrinder.getInstance().getScheduler().addTask(new CheckTask(this.perkData));
@@ -769,8 +767,8 @@ public class Driver
         return entity != null && Math.abs(entity.posY - ((EntityPlayer)Minecraft.getMinecraft().thePlayer).posY) < 3.0 && Utils.entityInMid(entity, this.currentMap) && entity.isEntityAlive();
     }
     
-    static MovementHelper access$100(final Driver driver) {
-        return driver.movementHelper;
+    static MovementHelper AccessTest() {
+        return AutoGrinder.drivers.movementHelper;
     }
     
     private void queueStateChange(final State currentState) {
